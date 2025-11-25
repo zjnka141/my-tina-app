@@ -97,7 +97,14 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
 
       - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} build
+        run: |
+          if [[ -n "${{ secrets.NEXT_PUBLIC_TINA_CLIENT_ID }}" && -n "${{ secrets.TINA_TOKEN }}" ]]; then
+            echo "Building with TinaCloud"
+            ${{ steps.detect-package-manager.outputs.runner }} build
+          else
+            echo "Building in local mode (git-based CMS)"
+            ${{ steps.detect-package-manager.outputs.runner }} run build-local
+          fi
         env:
           NEXT_PUBLIC_TINA_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_TINA_CLIENT_ID }}
           NEXT_PUBLIC_TINA_BRANCH: ${{ github.ref_name }}

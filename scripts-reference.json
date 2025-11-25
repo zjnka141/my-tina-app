@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "dev:local": "tinacms dev -c \"next dev --turbopack\"",
+    "dev:cloud": "NEXT_PUBLIC_TINA_CLIENT_ID=$NEXT_PUBLIC_TINA_CLIENT_ID TINA_TOKEN=$TINA_TOKEN tinacms dev -c \"next dev --turbopack\"",
+    "build:local": "tinacms build && next build",
+    "build:cloud": "NEXT_PUBLIC_TINA_CLIENT_ID=$NEXT_PUBLIC_TINA_CLIENT_ID TINA_TOKEN=$TINA_TOKEN tinacms build && next build"
+  }
+}
